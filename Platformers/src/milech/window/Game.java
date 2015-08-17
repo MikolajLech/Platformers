@@ -5,14 +5,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import milech.framework.GameObject;
+import milech.framework.ObjectId;
+import milech.objects.TestObject;
 
 public class Game extends Canvas implements Runnable {
 	 
 	private static final long serialVersionUID = -1428139567289818055L;
 	private boolean running = false;
 	private Thread thread; 
+	private Handler handler;
+	
+	private void init() {
 
+		handler = new Handler(); 
+		handler.add(new TestObject(100, 100, ObjectId.TestObject));
+	}
+	
 	public synchronized void start() {
 		if(running) {
 			return;
@@ -24,6 +32,9 @@ public class Game extends Canvas implements Runnable {
 
 	public void run() {
 		System.out.println("Thread has begun");
+		init();
+		this.requestFocus();
+		
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -53,7 +64,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void tick() {
-		 
+		 handler.tick();
 	}
 	
 	private void render() {
@@ -66,6 +77,8 @@ public class Game extends Canvas implements Runnable {
 		// Draw here
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		handler.render(g);
 		//////
 		g.dispose();
 		bs.show();

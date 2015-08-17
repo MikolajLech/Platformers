@@ -1,13 +1,14 @@
 package milech.objects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
 import milech.framework.GameObject;
 import milech.framework.ObjectId;
 
-public class testObject extends GameObject {
-	public testObject(float x, float y, ObjectId id) {
+public class TestObject extends GameObject {
+	public TestObject(float x, float y, ObjectId id) {
 		super(x, y, id);
 	}
 
@@ -18,7 +19,8 @@ public class testObject extends GameObject {
 
 	@Override
 	public void render(Graphics g) {
-		
+		g.setColor(Color.red);
+		g.fillRect((int)x, (int)y, 32, 32);
 	}
 
 	@Override

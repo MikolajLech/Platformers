@@ -1,5 +1,6 @@
 package milech.framework;
 
 public enum ObjectId {
-	Player();
+	Player(),
+	TestObject();
 }
