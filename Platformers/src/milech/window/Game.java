@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import milech.framework.ObjectId;
-import milech.objects.TestObject;
+import milech.objects.Player;
 
 public class Game extends Canvas implements Runnable {
 	 
@@ -14,11 +14,16 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 	private Thread thread; 
 	private Handler handler;
+	public static int WIDTH, HEIGHT;
 	
 	private void init() {
-
+		WIDTH = getWidth();
+		HEIGHT = getHeight();
+		 
 		handler = new Handler(); 
-		handler.add(new TestObject(100, 100, ObjectId.TestObject));
+		
+		handler.addObject(new Player(100, 100, ObjectId.Player));
+		handler.createLevel();
 	}
 	
 	public synchronized void start() {
