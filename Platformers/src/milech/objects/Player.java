@@ -40,6 +40,7 @@ public class Player extends GameObject{
 			GameObject tempObject =  handler.object.get(i);
 			if(tempObject.getId() == ObjectId.Block) {
 				if(getBounds().intersects(tempObject.getBounds())) {
+					y = tempObject.getY() - height;
 					velY = 0; 
 					falling = false;
 					jumping = false; 
