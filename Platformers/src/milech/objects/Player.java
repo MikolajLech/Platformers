@@ -8,24 +8,42 @@ import java.util.LinkedList;
 
 import milech.framework.GameObject;
 import milech.framework.ObjectId;
+import milech.window.Handler;
 
 public class Player extends GameObject{
 	
 	private float width = 48, height = 96;
 	private float gravity = 0.05f; 
 	private final float MAX_SPEED = 10;
+	Handler handler;
 	
-	public Player(float x, float y, ObjectId id) {
+	public Player(float x, float y, Handler handler, ObjectId id) {
 		super(x, y, id);
+		this.handler = handler;
 	}
-
+	
 	public void tick(LinkedList<GameObject> object) {
 		x += velX;
-//		y += velY;
+		y += velY;
 		if(falling || jumping) {
 			velY += gravity;
 			if(velY > MAX_SPEED) {
 				velY = MAX_SPEED;
+			}
+		}
+		
+		collision(object);
+	}
+	
+	private void collision(LinkedList<GameObject> object) {
+		for(int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject =  handler.object.get(i);
+			if(tempObject.getId() == ObjectId.Block) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					velY = 0; 
+					falling = false;
+					jumping = false; 
+				}
 			}
 		}
 	}
