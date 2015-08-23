@@ -13,7 +13,7 @@ import milech.window.Handler;
 public class Player extends GameObject{
 	
 	private float width = 48, height = 96;
-	private float gravity = 0.05f; 
+	private float gravity = 0.5f; 
 	private final float MAX_SPEED = 10;
 	Handler handler;
 	
@@ -39,13 +39,32 @@ public class Player extends GameObject{
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject =  handler.object.get(i);
 			if(tempObject.getId() == ObjectId.Block) {
-				if(getBounds().intersects(tempObject.getBounds())) {
+				
+				if(getBoundsTop().intersects(tempObject.getBounds())) {
+					//TODO [milech] Make it not hard coded
+					y = tempObject.getY() + 32;
+					velY = 0; 
+				}
+				
+				if(getBoundsDown().intersects(tempObject.getBounds())) {
 					y = tempObject.getY() - height;
 					velY = 0; 
 					falling = false;
 					jumping = false; 
 				}
+				else {
+					falling = true;
+				}
+
+				if(getBoundsRight().intersects(tempObject.getBounds())) {
+					x = tempObject.getX() - width - 2;
+				}
+				
+				if(getBoundsLeft().intersects(tempObject.getBounds())) {
+					x = tempObject.getX() + 35;
+				}
 			}
+			
 		}
 	}
 
