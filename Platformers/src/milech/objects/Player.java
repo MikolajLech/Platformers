@@ -31,6 +31,18 @@ public class Player extends GameObject{
 				velY = MAX_SPEED;
 			}
 		}
+		if(movingRight == true && movingLeft == false) {
+			velX = 5;
+		}
+		if(movingLeft == true && movingRight == false) {
+			velX = -5;
+		}
+		if(movingLeft && movingRight) {
+			velX = 0;
+		}
+		if(movingRight == false && movingLeft == false) {
+			velX = 0;
+		}
 		
 		collision(object);
 	}

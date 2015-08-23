@@ -11,6 +11,8 @@ public abstract class GameObject {
 	protected float velX = 0, velY = 0;
 	protected boolean falling = true;
 	protected boolean jumping = false;
+	protected boolean movingRight = false;
+	protected boolean movingLeft = false;
 	
 	public GameObject(float x, float y, ObjectId id) {
 		this.x = x;
@@ -65,6 +67,14 @@ public abstract class GameObject {
 		this.y = y;
 	}
 	public abstract void tick(LinkedList<GameObject> object);
+
+	public void setMovingRight(boolean movingRight) {
+		this.movingRight = movingRight;
+	}
+	
+	public void setMovingLeft(boolean movingLeft) {
+		this.movingLeft = movingLeft;
+	}
 	
 }
  

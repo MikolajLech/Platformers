@@ -19,11 +19,11 @@ public class KeyInput extends KeyAdapter {
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			if(tempObject.getId() == ObjectId.Player) {
-				if(key == KeyEvent.VK_D) {
-					tempObject.setVelX(5);
+				if(key == KeyEvent.VK_RIGHT) {
+					tempObject.setMovingRight(true);
 				}
-				if(key == KeyEvent.VK_A) {
-					tempObject.setVelX(-5);
+				if(key == KeyEvent.VK_LEFT) {
+					tempObject.setMovingLeft(true);
 				}
 				if(key == KeyEvent.VK_SPACE && !tempObject.isJumping()) {
 					tempObject.setJumping(true);
@@ -44,11 +44,11 @@ public class KeyInput extends KeyAdapter {
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			if(tempObject.getId() == ObjectId.Player) {
-				if(key == KeyEvent.VK_D) {
-					tempObject.setVelX(0);
+				if(key == KeyEvent.VK_RIGHT) {
+					tempObject.setMovingRight(false);
 				}
-				if(key == KeyEvent.VK_A) {
-					tempObject.setVelX(0);
+				if(key == KeyEvent.VK_LEFT) {
+					tempObject.setMovingLeft(false);
 				}
 			}
 		}

@@ -3,6 +3,7 @@ package milech.window;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 import milech.framework.KeyInput;
@@ -14,14 +15,18 @@ public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = -1428139567289818055L;
 	private boolean running = false;
 	private Thread thread; 
-	private Handler handler;
 	public static int WIDTH, HEIGHT;
+	
+	//Objects
+	private Handler handler;
+	private Camera camera;
 	
 	private void init() {
 		WIDTH = getWidth();
 		HEIGHT = getHeight();
 		 
 		handler = new Handler(); 
+		camera = new Camera(0, 0);
 		
 		handler.addObject(new Player(100, 100, handler, ObjectId.Player));
 		handler.createLevel2();
@@ -73,6 +78,11 @@ public class Game extends Canvas implements Runnable {
 	
 	private void tick() {
 		 handler.tick();
+		 for(int i = 0; i < handler.object.size(); i++) {
+			 if(handler.object.get(i).getId() == ObjectId.Player) {
+				 camera.tick(handler.object.get(i));
+			 }
+		 }
 	}
 	
 	private void render() {
@@ -82,11 +92,17 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
+		Graphics2D g2d = (Graphics2D	)g;
+		
+		
 		// Draw here
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
+		g2d.translate(camera.getX(), camera.getY()); // begin of camera
 		handler.render(g);
+		g2d.translate(-camera.getX(), -camera.getY()); // end of camera
+
 		//////
 		g.dispose();
 		bs.show();
