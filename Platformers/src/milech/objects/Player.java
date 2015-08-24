@@ -8,6 +8,8 @@ import java.util.LinkedList;
 
 import milech.framework.GameObject;
 import milech.framework.ObjectId;
+import milech.framework.Texture;
+import milech.window.Game;
 import milech.window.Handler;
 
 public class Player extends GameObject{
@@ -16,12 +18,14 @@ public class Player extends GameObject{
 	private float gravity = 0.05f; 
 	private final float MAX_SPEED = 10;
 	Handler handler;
+	Texture texture = Game.getTexture();
 	
 	public Player(float x, float y, Handler handler, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
 	}
 	
+	@Override
 	public void tick(LinkedList<GameObject> object) {
 		x += velX;
 		y += velY;
@@ -48,9 +52,10 @@ public class Player extends GameObject{
 		}
 	}
 
+	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillRect((int)x, (int)y, (int)width, (int)height);
+		g.drawImage(texture.player[0], (int)x, (int)y, 48, 96, null);
 		
 		Graphics2D g2d = (Graphics2D) g;
 		g.setColor(Color.red);
@@ -73,6 +78,7 @@ public class Player extends GameObject{
 		return new Rectangle((int)x, (int)y + 5, (int)5, (int)height - 10);
 	}
 
+	@Override
 	public Rectangle getBounds() {
 		return new Rectangle((int)x, (int)y, (int)width, (int)height);
 
