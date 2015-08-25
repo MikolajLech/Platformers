@@ -93,11 +93,18 @@ public class Player extends GameObject{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		if(velX != 0) {
-			playerWalk.drawAnimation(g, (int)x, (int)y, 48, 96);
+		if(velX == 0){ // stand still
+			if(lastSideMoveRight)
+				g.drawImage(texture.player[0], (int)x, (int)y, 48, 96, null); // face right
+			else if(lastSideMoveLeft) {
+				g.drawImage(texture.player[0], (int)(x + width), (int)y, -48, 96, null); // face left
+			}
 		}
-		else {
-			g.drawImage(texture.player[0], (int)x, (int)y, 48, 96, null);
+		else if(velX < 0) { // walk left
+			playerWalk.drawAnimation(g, (int)(x + width), (int)y, -48, 96);
+		}
+		else if(velX > 0) { // walk right
+			playerWalk.drawAnimation(g, (int)x, (int)y, 48, 96);
 		}
 		
 		Graphics2D g2d = (Graphics2D) g;

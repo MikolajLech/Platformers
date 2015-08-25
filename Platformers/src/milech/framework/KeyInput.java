@@ -8,9 +8,17 @@ import milech.window.Handler;
 public class KeyInput extends KeyAdapter {
 	
 	Handler handler;
+	private int lastKeySidesMovePressed;
 	
 	public KeyInput(Handler handler) {
 		this.handler = handler;
+	}
+	
+	public boolean ifLastSidesMoveLeft() {
+		return lastKeySidesMovePressed == KeyEvent.VK_LEFT;
+	}
+	public boolean ifLastSidesMoveRight() {
+		return lastKeySidesMovePressed == KeyEvent.VK_RIGHT;
 	}
 	
 	public void keyPressed(KeyEvent e) {
@@ -21,9 +29,11 @@ public class KeyInput extends KeyAdapter {
 			if(tempObject.getId() == ObjectId.Player) {
 				if(key == KeyEvent.VK_RIGHT) {
 					tempObject.setMovingRight(true);
+					tempObject.setLastSideMoveRight();
 				}
 				if(key == KeyEvent.VK_LEFT) {
 					tempObject.setMovingLeft(true);
+					tempObject.setLastSideMoveLeft();
 				}
 				if(key == KeyEvent.VK_SPACE/* && !tempObject.isJumping()*/) {
 					tempObject.setJumping(true);

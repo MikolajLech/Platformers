@@ -13,6 +13,8 @@ public abstract class GameObject {
 	protected boolean jumping = false;
 	protected boolean movingRight = false;
 	protected boolean movingLeft = false;
+	protected boolean lastSideMoveRight = true;
+	protected boolean lastSideMoveLeft = false;
 	
 	public GameObject(float x, float y, ObjectId id) {
 		this.x = x;
@@ -74,6 +76,16 @@ public abstract class GameObject {
 	
 	public void setMovingLeft(boolean movingLeft) {
 		this.movingLeft = movingLeft;
+	}
+
+	public void setLastSideMoveRight() {
+		this.lastSideMoveRight = true;
+		this.lastSideMoveLeft = false;
+	}
+	
+	public void setLastSideMoveLeft() {
+		this.lastSideMoveRight = false;
+		this.lastSideMoveLeft = true;
 	}
 	
 }
