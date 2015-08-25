@@ -6,13 +6,15 @@ import milech.window.BufferedImageLoader;
 
 public class Texture {
 
-	SpriteSheet bs, ps; // block, player
+	SpriteSheet bs, ps, gs; // block, player
 	private BufferedImage block_sheet = null;
 	private BufferedImage player_sheet = null;
+	private BufferedImage guns_sheet = null;
 	public BufferedImage[] block = new BufferedImage[2]; // floor types
 	public BufferedImage[] playerStand = new BufferedImage[1]; // player stands
 	public BufferedImage[] playerWalk = new BufferedImage[7]; // player walks
 	public BufferedImage[] playerJump = new BufferedImage[3]; // player jumps
+	public BufferedImage[] guns = new BufferedImage[1];
 
 	public Texture() {
 
@@ -20,12 +22,14 @@ public class Texture {
 		try {
 			block_sheet = loader.loadImage("/sheets/block_sheet.png");
 			player_sheet = loader.loadImage("/sheets/player_sheet.png");
+			guns_sheet = loader.loadImage("/sheets/guns_sheet.png");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		bs = new SpriteSheet(block_sheet);
 		ps = new SpriteSheet(player_sheet);
+		gs = new SpriteSheet(guns_sheet);
 
 		getTextures();
 	}
@@ -47,6 +51,8 @@ public class Texture {
 		playerJump[0] = ps.getImage(8, 2, 32, 64); // frame for player jump
 		playerJump[1] = ps.getImage(9, 2, 32, 64); // frame for player jump
 		playerJump[2] = ps.getImage(10, 2, 32, 64); // frame for player jump
+		
+		guns[0] = gs.getImage(7, 2, 60, 60); // knife to throw
 	}
 
 }

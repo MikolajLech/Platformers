@@ -1,6 +1,7 @@
 package milech.window;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -110,13 +111,18 @@ public class Game extends Canvas implements Runnable {
 		
 		
 		// Draw here
-//		g.setColor(new Color(196, 147, 67));
-//		g.fillRect(0, 0, getWidth(), getHeight());
+		g.setColor(new Color(196, 147, 67)); // set background color
+		g.fillRect(0, 0, getWidth(), getHeight());
 		
-		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+//		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 		
 		g2d.translate(camera.getX(), camera.getY()); // begin of camera
-		for(int xx = 0; xx < cloud.getWidth() * 2; xx += cloud.getWidth()) {
+		
+		for(int xx = 0; xx < background.getWidth() * 4; xx += background.getWidth()) { // set trees image
+			g.drawImage(background, xx, 0, background.getWidth(), getHeight(), this);
+		}
+		
+		for(int xx = 0; xx < cloud.getWidth() * 4; xx += cloud.getWidth()) {
 			g.drawImage(scaledCloud, xx, 100, this);
 		}
 		handler.render(g);

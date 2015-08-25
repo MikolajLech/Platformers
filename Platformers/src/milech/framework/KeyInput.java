@@ -40,9 +40,16 @@ public class KeyInput extends KeyAdapter {
 					tempObject.setJumping(true);
 					tempObject.setVelY(-10);
 				}
-				if(key == KeyEvent.VK_W/* && !tempObject.isJumping()*/) {
-					handler.addObject(new Bullet(tempObject.getX() + 10, tempObject.getY() + 48, 
-							ObjectId.Bullet, tempObject.getFacing() * 7));
+				if(key == KeyEvent.VK_W) {
+					Bullet newBullet = new Bullet(tempObject.getX() + 20, tempObject.getY() + 30, 
+							ObjectId.Bullet, tempObject.getFacing() * 8);
+					if(tempObject.getFacing() == 1) {
+						newBullet.setLastSideMoveRight();
+					}
+					else {
+						newBullet.setLastSideMoveLeft();
+					}
+					handler.addObject(newBullet);
 				}
 			}
 		}

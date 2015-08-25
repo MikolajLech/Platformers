@@ -58,6 +58,7 @@ public class Player extends GameObject{
 		
 		playerWalk.runAnimation();
 		playerJump.runAnimation();
+		
 	}
 	
 	private void collision(LinkedList<GameObject> object) {
