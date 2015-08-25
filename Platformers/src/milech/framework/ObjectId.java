@@ -2,5 +2,6 @@ package milech.framework;
 
 public enum ObjectId {
 	Player(),
-	Block();
+	Block(),
+	Bullet();
 }

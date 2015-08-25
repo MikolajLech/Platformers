@@ -88,5 +88,12 @@ public abstract class GameObject {
 		this.lastSideMoveLeft = true;
 	}
 	
+	public int getFacing() {
+		if(lastSideMoveRight == true) {
+			return 1;
+		}
+		return -1;
+	}
+	
 }
  

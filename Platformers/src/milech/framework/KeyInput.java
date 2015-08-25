@@ -3,6 +3,7 @@ package milech.framework;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import milech.objects.Bullet;
 import milech.window.Handler;
 
 public class KeyInput extends KeyAdapter {
@@ -38,6 +39,10 @@ public class KeyInput extends KeyAdapter {
 				if(key == KeyEvent.VK_SPACE/* && !tempObject.isJumping()*/) {
 					tempObject.setJumping(true);
 					tempObject.setVelY(-10);
+				}
+				if(key == KeyEvent.VK_W/* && !tempObject.isJumping()*/) {
+					handler.addObject(new Bullet(tempObject.getX() + 10, tempObject.getY() + 48, 
+							ObjectId.Bullet, tempObject.getFacing() * 7));
 				}
 			}
 		}
