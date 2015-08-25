@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import milech.framework.GameObject;
@@ -19,14 +18,17 @@ public class Player extends GameObject{
 	private float width = 48, height = 96;
 	private float gravity = 0.5f; 
 	private final float MAX_SPEED = 10;
+	
 	Handler handler;
 	Texture texture = Game.getTexture();
 	private Animation playerWalk;
+	private Animation playerJump;
 	
 	public Player(float x, float y, Handler handler, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
-		playerWalk = new Animation(5, Arrays.copyOfRange(texture.player, 1, 6));
+		playerWalk = new Animation(5, texture.playerWalk);
+		playerJump = new Animation(10, texture.playerJump);
 	}
 	
 	@Override
@@ -55,6 +57,7 @@ public class Player extends GameObject{
 		collision(object);
 		
 		playerWalk.runAnimation();
+		playerJump.runAnimation();
 	}
 	
 	private void collision(LinkedList<GameObject> object) {
@@ -93,18 +96,28 @@ public class Player extends GameObject{
 	@Override
 	public void render(Graphics g) {
 //		g.setColor(Color.red);
-		if(velX == 0){ // stand still
-			if(lastSideMoveRight)
-				g.drawImage(texture.player[0], (int)x, (int)y, 48, 96, null); // face right
+		if(jumping) { // jump
+			if(lastSideMoveRight) {
+				playerJump.drawAnimation(g, (int)x, (int)y, 48, 96);
+			}
 			else if(lastSideMoveLeft) {
-				g.drawImage(texture.player[0], (int)(x + width), (int)y, -48, 96, null); // face left
+				playerJump.drawAnimation(g, (int)(x + width), (int)y, -48, 96);
 			}
 		}
-		else if(velX < 0) { // walk left
-			playerWalk.drawAnimation(g, (int)(x + width), (int)y, -48, 96);
-		}
-		else if(velX > 0) { // walk right
-			playerWalk.drawAnimation(g, (int)x, (int)y, 48, 96);
+		else {
+			if(velX == 0){ // stand still
+				if(lastSideMoveRight)
+					g.drawImage(texture.playerStand[0], (int)x, (int)y, 48, 96, null); // face right
+				else if(lastSideMoveLeft) {
+					g.drawImage(texture.playerStand[0], (int)(x + width), (int)y, -48, 96, null); // face left
+				}
+			}
+			else if(velX > 0) { // walk right
+				playerWalk.drawAnimation(g, (int)x, (int)y, 48, 96);
+			}
+			else if(velX < 0) { // walk left
+				playerWalk.drawAnimation(g, (int)(x + width), (int)y, -48, 96);
+			}
 		}
 		
 		Graphics2D g2d = (Graphics2D) g;
