@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import milech.framework.GameObject;
 import milech.framework.ObjectId;
 import milech.framework.Texture;
+import milech.window.Animation;
 import milech.window.Game;
 import milech.window.Handler;
 
@@ -19,10 +21,12 @@ public class Player extends GameObject{
 	private final float MAX_SPEED = 10;
 	Handler handler;
 	Texture texture = Game.getTexture();
+	private Animation playerWalk;
 	
 	public Player(float x, float y, Handler handler, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
+		playerWalk = new Animation(5, Arrays.copyOfRange(texture.player, 1, 6));
 	}
 	
 	@Override
@@ -49,6 +53,8 @@ public class Player extends GameObject{
 		}
 		
 		collision(object);
+		
+		playerWalk.runAnimation();
 	}
 	
 	private void collision(LinkedList<GameObject> object) {
@@ -87,7 +93,12 @@ public class Player extends GameObject{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		g.drawImage(texture.player[0], (int)x, (int)y, 48, 96, null);
+		if(velX != 0) {
+			playerWalk.drawAnimation(g, (int)x, (int)y, 48, 96);
+		}
+		else {
+			g.drawImage(texture.player[0], (int)x, (int)y, 48, 96, null);
+		}
 		
 		Graphics2D g2d = (Graphics2D) g;
 		g.setColor(Color.red);
@@ -113,8 +124,6 @@ public class Player extends GameObject{
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle((int)x, (int)y, (int)width, (int)height);
-
 	}
-	
 
 }
