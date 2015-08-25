@@ -92,7 +92,7 @@ public class Player extends GameObject{
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.blue);
+//		g.setColor(Color.red);
 		if(velX == 0){ // stand still
 			if(lastSideMoveRight)
 				g.drawImage(texture.player[0], (int)x, (int)y, 48, 96, null); // face right

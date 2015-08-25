@@ -1,9 +1,9 @@
 package milech.window;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -19,7 +19,8 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 	private Thread thread; 
 	public static int WIDTH, HEIGHT;
-	private BufferedImage level = null;
+	private BufferedImage level = null, background = null, cloud = null;
+	private Image scaledCloud = null;
 	
 	//Objects
 	private Handler handler;
@@ -34,6 +35,9 @@ public class Game extends Canvas implements Runnable {
 		texture = new Texture();
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level = loader.loadImage("/levels/level1.png"); // loading level
+		background = loader.loadImage("/other/background.png"); // loading background
+		cloud = loader.loadImage("/other/cloud.png"); // loading cloud
+		scaledCloud = cloud.getScaledInstance(375, 165, Image.SCALE_REPLICATE);
 		
 		handler = new Handler(); 
 		camera = new Camera(0, 0);
@@ -106,11 +110,17 @@ public class Game extends Canvas implements Runnable {
 		
 		
 		// Draw here
-		g.setColor(Color.black);
-		g.fillRect(0, 0, getWidth(), getHeight());
+//		g.setColor(new Color(196, 147, 67));
+//		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 		
 		g2d.translate(camera.getX(), camera.getY()); // begin of camera
+		for(int xx = 0; xx < cloud.getWidth() * 2; xx += cloud.getWidth()) {
+			g.drawImage(scaledCloud, xx, 100, this);
+		}
 		handler.render(g);
+		
 		g2d.translate(-camera.getX(), -camera.getY()); // end of camera
 
 		//////
