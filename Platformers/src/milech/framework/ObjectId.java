@@ -3,5 +3,6 @@ package milech.framework;
 public enum ObjectId {
 	Player(),
 	Block(),
-	Bullet();
+	Bullet(),
+	Flag();
 }
