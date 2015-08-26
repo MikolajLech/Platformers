@@ -10,6 +10,7 @@ import milech.framework.GameObject;
 import milech.framework.ObjectId;
 import milech.framework.Texture;
 import milech.window.Animation;
+import milech.window.Camera;
 import milech.window.Game;
 import milech.window.Handler;
 
@@ -19,16 +20,19 @@ public class Player extends GameObject{
 	private float gravity = 0.5f; 
 	private final float MAX_SPEED = 10;
 	
-	Handler handler;
+	private Handler handler;
+	private Camera camera;
+	
 	Texture texture = Game.getTexture();
 	private Animation playerWalk;
 	private Animation playerJump;
 	
-	public Player(float x, float y, Handler handler, ObjectId id) {
+	public Player(float x, float y, Handler handler, Camera camera, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
 		playerWalk = new Animation(5, texture.playerWalk);
 		playerJump = new Animation(15, texture.playerJump);
+		this.camera = camera;
 	}
 	
 	@Override
@@ -88,6 +92,12 @@ public class Player extends GameObject{
 				
 				if(getBoundsLeft().intersects(tempObject.getBounds())) {
 					x = tempObject.getX() + 35;
+				}
+			}
+			else if(tempObject.getId() == ObjectId.Flag){
+				// switch level
+				if(getBounds().intersects(tempObject.getBounds())) {
+					handler.switchLevel();
 				}
 			}
 			

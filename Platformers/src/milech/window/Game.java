@@ -11,8 +11,6 @@ import java.awt.image.BufferedImage;
 import milech.framework.KeyInput;
 import milech.framework.ObjectId;
 import milech.framework.Texture;
-import milech.objects.Block;
-import milech.objects.Player;
 
 public class Game extends Canvas implements Runnable {
 	 
@@ -20,13 +18,15 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 	private Thread thread; 
 	public static int WIDTH, HEIGHT;
-	private BufferedImage level = null, background = null, cloud = null;
+	private BufferedImage background = null, cloud = null;
 	private Image scaledCloud = null;
 	
 	//Objects
 	private Handler handler;
 	private Camera camera;
 	private static Texture texture;
+	
+	public static int LEVEL = 1;
 	
 	
 	private void init() {
@@ -35,15 +35,14 @@ public class Game extends Canvas implements Runnable {
 		 
 		texture = new Texture();
 		BufferedImageLoader loader = new BufferedImageLoader();
-		level = loader.loadImage("/levels/level1.png"); // loading level
 		background = loader.loadImage("/other/background.png"); // loading background
 		cloud = loader.loadImage("/other/cloud.png"); // loading cloud
 		scaledCloud = cloud.getScaledInstance(375, 165, Image.SCALE_REPLICATE);
 		
-		handler = new Handler(); 
 		camera = new Camera(0, 0);
+		handler = new Handler(camera); 
 		
-		loadImageLevel(level);
+		handler.switchLevel();
 
 		
 		this.addKeyListener(new KeyInput(handler));
@@ -132,33 +131,6 @@ public class Game extends Canvas implements Runnable {
 		//////
 		g.dispose();
 		bs.show();
-	}
-	
-	private void loadImageLevel(BufferedImage image) {
-		int w = image.getWidth();
-		int h = image.getHeight(); 
-		
-		System.out.println("width, height: " + w + " "+ h);
-		
-		for(int xx = 0; xx < h; xx++) {
-			for(int yy = 0; yy < w; yy++) {
-				int pixel = image.getRGB(xx, yy);
-				int red = (pixel >> 16) & 0xff;
-				int green = (pixel >> 8) & 0xff;
-				int blue = (pixel) & 0xff;
-				
-				if(red == 255 && green == 255 && blue == 255) {
-					handler.addObject(new Block(xx * 32, yy * 32, 0, ObjectId.Block));
-				}
-				if(red == 128 && green == 128 & blue == 128) {
-					handler.addObject(new Block(xx * 32, yy * 32, 1, ObjectId.Block));
-				}
-				if(red == 0 && green == 0 & blue == 255) {
-					handler.addObject(new Player(xx * 32, yy * 32, handler, ObjectId.Player));
-				}
-			}
-		}
-		
 	}
 	
 	public static void main(String[] args) {
