@@ -28,7 +28,7 @@ public class Player extends GameObject{
 		super(x, y, id);
 		this.handler = handler;
 		playerWalk = new Animation(5, texture.playerWalk);
-		playerJump = new Animation(10, texture.playerJump);
+		playerJump = new Animation(15, texture.playerJump);
 	}
 	
 	@Override

@@ -48,8 +48,8 @@ public class Texture {
 		playerWalk[5] = ps.getImage(7, 1, 32, 64); // frame for player walk
 		
 		playerJump[0] = ps.getImage(8, 2, 32, 64); // frame for player jump
-		playerJump[1] = ps.getImage(9, 2, 32, 64); // frame for player jump
-		playerJump[2] = ps.getImage(10, 2, 32, 64); // frame for player jump
+		playerJump[1] = ps.getImage(10, 2, 32, 64); // frame for player jump
+		playerJump[2] = ps.getImage(9, 2, 32, 64); // frame for player jump
 		
 		guns[0] = gs.getImage(7, 2, 60, 60); // knife to throw
 	}
