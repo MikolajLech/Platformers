@@ -66,8 +66,8 @@ public class Player extends GameObject{
 	}
 	
 	private void collision(LinkedList<GameObject> object) {
-		for(int i = 0; i < handler.object.size(); i++) {
-			GameObject tempObject =  handler.object.get(i);
+		for(int i = 0; i < handler.objects.size(); i++) {
+			GameObject tempObject =  handler.objects.get(i);
 			if(tempObject.getId() == ObjectId.Block) {
 				
 				if(getBoundsTop().intersects(tempObject.getBounds())) {
@@ -97,7 +97,9 @@ public class Player extends GameObject{
 			else if(tempObject.getId() == ObjectId.Flag){
 				// switch level
 				if(getBounds().intersects(tempObject.getBounds())) {
+					// TODO [milech] move player to the beginning
 					handler.switchLevel();
+					break; // if case the flag in next level is exactly at the same spot as in previous one.
 				}
 			}
 			

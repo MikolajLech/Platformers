@@ -12,7 +12,7 @@ import milech.objects.Player;
 
 public class Handler {
 	
-	public LinkedList<GameObject> object = new LinkedList<GameObject>();
+	public LinkedList<GameObject> objects = new LinkedList<GameObject>();
 	private GameObject tempObject;
 	private Camera camera;
 	
@@ -26,29 +26,29 @@ public class Handler {
 	}
 	
 	public void tick() {
-		for(int i = 0; i < object.size(); i++) {
-			tempObject = object.get(i);
-			tempObject.tick(object);
+		for(int i = 0; i < objects.size(); i++) {
+			tempObject = objects.get(i);
+			tempObject.tick(objects);
 		}
 	}
 	
 	public void render(Graphics g) {
-		for(int i = 0; i < object.size(); i++) {
-			tempObject = object.get(i);
+		for(int i = 0; i < objects.size(); i++) {
+			tempObject = objects.get(i);
 			tempObject.render(g);
 		}
 	}
 	
 	public void addObject(GameObject object) {
-		this.object.add(object);
+		this.objects.add(object);
 	}
 	
 	public void remove(GameObject object) {
-		this.object.remove(object);
+		this.objects.remove(object);
 	}
 	
 	private void clearLevel() {
-		object.clear();
+		objects.clear();
 	}
 	
 	public void loadImageLevel(BufferedImage image) {
@@ -81,6 +81,7 @@ public class Handler {
 	}
 	
 	public void switchLevel() {
+		Game.LEVEL++;
 		clearLevel();
 		camera.setX(0);
 		switch(Game.LEVEL) {
@@ -91,6 +92,6 @@ public class Handler {
 			loadImageLevel(level2);
 			break;
 		}
-		Game.LEVEL++;
+		System.out.println(Game.LEVEL);
 	}
 }

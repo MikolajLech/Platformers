@@ -25,8 +25,8 @@ public class KeyInput extends KeyAdapter {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		for(int i = 0; i < handler.object.size(); i++) {
-			GameObject tempObject = handler.object.get(i);
+		for(int i = 0; i < handler.objects.size(); i++) {
+			GameObject tempObject = handler.objects.get(i);
 			if(tempObject.getId() == ObjectId.Player) {
 				if(key == KeyEvent.VK_RIGHT) {
 					tempObject.setMovingRight(true);
@@ -63,8 +63,8 @@ public class KeyInput extends KeyAdapter {
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		for(int i = 0; i < handler.object.size(); i++) {
-			GameObject tempObject = handler.object.get(i);
+		for(int i = 0; i < handler.objects.size(); i++) {
+			GameObject tempObject = handler.objects.get(i);
 			if(tempObject.getId() == ObjectId.Player) {
 				if(key == KeyEvent.VK_RIGHT) {
 					tempObject.setMovingRight(false);

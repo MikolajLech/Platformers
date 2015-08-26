@@ -26,7 +26,7 @@ public class Game extends Canvas implements Runnable {
 	private Camera camera;
 	private static Texture texture;
 	
-	public static int LEVEL = 1;
+	public static int LEVEL = 0;
 	
 	
 	private void init() {
@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
 		camera = new Camera(0, 0);
 		handler = new Handler(camera); 
 		
-		handler.switchLevel();
+		handler.switchLevel(); // load 1 level;
 
 		
 		this.addKeyListener(new KeyInput(handler));
@@ -92,9 +92,9 @@ public class Game extends Canvas implements Runnable {
 	
 	private void tick() {
 		 handler.tick();
-		 for(int i = 0; i < handler.object.size(); i++) {
-			 if(handler.object.get(i).getId() == ObjectId.Player) {
-				 camera.tick(handler.object.get(i));
+		 for(int i = 0; i < handler.objects.size(); i++) {
+			 if(handler.objects.get(i).getId() == ObjectId.Player) {
+				 camera.tick(handler.objects.get(i));
 			 }
 		 }
 	}
